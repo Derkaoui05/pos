@@ -2,7 +2,7 @@
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { BarChart3, Package, Layers } from "lucide-react";
+import { BarChart3, Package, Layers, Settings } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export default function DashboardSubNav() {
@@ -26,6 +26,12 @@ export default function DashboardSubNav() {
       label: "Categories",
       icon: Layers,
       active: pathname?.startsWith("/dashboard/categories"),
+    },
+    {
+      href: "/dashboard/settings",
+      label: "Settings",
+      icon: Settings,
+      active: pathname?.startsWith("/dashboard/settings"),
     },
   ];
 

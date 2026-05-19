@@ -6,9 +6,11 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 // src/app/(pos)/pos/page.tsx — add to header
 import { signOut, useSession } from "next-auth/react";
+import { useSettings } from "@/providers/SettingsProvider";
 
 export default function AppNavbar() {
   const { data: session } = useSession();
+  const { settings } = useSettings();
   const pathname = usePathname();
   const [time, setTime] = useState("");
 
@@ -38,12 +40,20 @@ export default function AppNavbar() {
  
         {/* Brand/Logo */}
         <div className="flex items-center gap-2">
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary text-primary-foreground shadow-sm">
-            <Store className="h-5 w-5" />
-          </div>
+          {settings.logo ? (
+            <img
+              src={settings.logo}
+              alt="Brand Logo"
+              className="h-9 w-9 rounded-lg object-cover border border-border shadow-xs"
+            />
+          ) : (
+            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary text-primary-foreground shadow-sm">
+              <Store className="h-5 w-5" />
+            </div>
+          )}
           <div>
             <span className="font-bold text-sm tracking-tight text-foreground block leading-none">
-              NEXUS
+              {settings.logoText || "NEXUS"}
             </span>
             <span className="text-[10px] text-muted-foreground font-semibold tracking-wider uppercase">
               POS System
