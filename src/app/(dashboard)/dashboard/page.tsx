@@ -3,6 +3,8 @@ import { useQuery } from "@tanstack/react-query";
 import StatsCards from "@/components/dashboard/StatsCards";
 import SalesTable from "@/components/dashboard/SalesTable";
 import TopProducts from "@/components/dashboard/TopProducts";
+import AppNavbar from "@/components/layout/AppNavbar";
+import DashboardSubNav from "@/components/dashboard/DashboardSubNav";
 import { Skeleton } from "@/components/ui/skeleton";
 
 export default function DashboardPage() {
@@ -15,52 +17,53 @@ export default function DashboardPage() {
   if (isLoading) return <DashboardSkeleton />;
 
   return (
-    <div className="p-6 space-y-6 max-w-7xl mx-auto">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold">Dashboard</h1>
-          <p className="text-muted-foreground text-sm">Sales overview</p>
-        </div>
-        <div className="flex items-center gap-4">
-          <a href="/dashboard/categories"
-            className="text-sm font-medium hover:text-primary transition-colors">
-            Categories
-          </a>
-          <a href="/dashboard/products"
-            className="text-sm font-medium text-primary hover:underline">
-            Manage Products →
-          </a>
-          <a href="/pos"
-            className="text-sm text-muted-foreground hover:text-primary transition-colors">
-            ← Back to POS
-          </a>
-        </div>
-      </div>
+    <div className="min-h-screen flex flex-col bg-zinc-50/50 dark:bg-zinc-950/20">
+      {/* Navigation Headers */}
+      <AppNavbar />
+      <DashboardSubNav />
 
-      <StatsCards stats={data.stats} />
+      {/* Main Content */}
+      <main className="flex-1 p-6 space-y-6 max-w-7xl w-full mx-auto">
+        <div className="flex items-center justify-between pb-2">
+          <div>
+            <h1 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50">
+              Dashboard Overview
+            </h1>
+            <p className="text-zinc-500 dark:text-zinc-400 text-xs font-semibold uppercase tracking-wider mt-0.5">
+              Real-time sales performance metrics
+            </p>
+          </div>
+        </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2">
-          <SalesTable orders={data.recentOrders} />
+        <StatsCards stats={data.stats} />
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="lg:col-span-2">
+            <SalesTable orders={data.recentOrders} />
+          </div>
+          <div>
+            <TopProducts products={data.topProducts} />
+          </div>
         </div>
-        <div>
-          <TopProducts products={data.topProducts} />
-        </div>
-      </div>
+      </main>
     </div>
   );
 }
 
 function DashboardSkeleton() {
   return (
-    <div className="p-6 space-y-6">
-      <Skeleton className="h-8 w-48" />
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        {Array.from({ length: 4 }).map((_, i) => (
-          <Skeleton key={i} className="h-28 rounded-xl" />
-        ))}
-      </div>
-      <Skeleton className="h-96 rounded-xl" />
+    <div className="min-h-screen flex flex-col bg-zinc-50/50 dark:bg-zinc-950/20">
+      <AppNavbar />
+      <DashboardSubNav />
+      <main className="flex-1 p-6 space-y-6 max-w-7xl w-full mx-auto">
+        <Skeleton className="h-8 w-48" />
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <Skeleton key={i} className="h-28 rounded-xl" />
+          ))}
+        </div>
+        <Skeleton className="h-96 rounded-xl" />
+      </main>
     </div>
   );
 }

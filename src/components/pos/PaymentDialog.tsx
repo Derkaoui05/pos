@@ -1,36 +1,37 @@
 "use client";
-import { useState, useRef } from "react";
-import { useCartStore } from "@/store/cart.store";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { toast } from "sonner";
-import { Banknote, CreditCard, Smartphone, CheckCircle } from "lucide-react";
+import { useCartStore } from "@/store/cart.store";
 import { Order } from "@/types";
+import { Banknote, CheckCircle, CreditCard, Smartphone } from "lucide-react";
+import { useRef, useState } from "react";
 import { useReactToPrint } from "react-to-print";
+import { toast } from "sonner";
 import Receipt from "./Receipt";
-
+import { useSession } from "next-auth/react";
 const METHODS = [
-  { value: "CASH",     label: "Cash",     icon: Banknote },
-  { value: "CARD",     label: "Card",     icon: CreditCard },
+  { value: "CASH", label: "Cash", icon: Banknote },
+  { value: "CARD", label: "Card", icon: CreditCard },
   { value: "TRANSFER", label: "Transfer", icon: Smartphone },
 ];
 
 interface Props {
-  open:    boolean;
+  open: boolean;
   onClose: () => void;
-  total:   number;
-  tax:     number;
+  total: number;
+  tax: number;
 }
 
 export default function PaymentDialog({ open, onClose, total, tax }: Props) {
   const { items, discount, subtotal, clearCart } = useCartStore();
-  const [method,         setMethod]         = useState("CASH");
-  const [amountPaid,     setAmountPaid]     = useState<number>(total);
-  const [loading,        setLoading]        = useState(false);
+  const [method, setMethod] = useState("CASH");
+  const [amountPaid, setAmountPaid] = useState<number>(total);
+  const [loading, setLoading] = useState(false);
   const [completedOrder, setCompletedOrder] = useState<Order | null>(null);
   const receiptRef = useRef<HTMLDivElement>(null);
+  const { data: session } = useSession();
 
   const handlePrint = useReactToPrint({
     contentRef: receiptRef,
@@ -50,22 +51,22 @@ export default function PaymentDialog({ open, onClose, total, tax }: Props) {
     setLoading(true);
     try {
       const res = await fetch("/api/orders", {
-        method:  "POST",
+        method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           items: items.map(i => ({
             productId: i.productId,
-            quantity:  i.quantity,
+            quantity: i.quantity,
             unitPrice: i.price,
           })),
-          subtotal:      subtotal(),
+          subtotal: subtotal(),
           discount,
           tax,
           total,
           paymentMethod: method,
           amountPaid,
           change,
-          cashierId: "REPLACE_WITH_SESSION_USER_ID",
+          cashierId: session?.user.id ?? "",  
         }),
       });
 
