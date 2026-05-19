@@ -24,6 +24,12 @@ export default function POSPage() {
 
   return (
     <div className="flex h-screen overflow-hidden bg-background">
+      <div className="flex items-center justify-between px-4 py-2 border-b bg-card">
+  <h1 className="font-bold text-lg">POS</h1>
+  <a href="/dashboard" className="text-xs text-muted-foreground hover:text-primary transition-colors">
+    Dashboard →
+  </a>
+</div>
       {/* Left — Products */}
       <div className="flex flex-col flex-1 overflow-hidden p-4 gap-4">
         {/* Category Tabs */}
