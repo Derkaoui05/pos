@@ -8,7 +8,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 export default function DashboardPage() {
   const { data, isLoading } = useQuery({
     queryKey: ["dashboard"],
-    queryFn:  () => fetch("/api/dashboard").then(r => r.json()),
+    queryFn: () => fetch("/api/dashboard").then(r => r.json()),
     refetchInterval: 30000, // refresh every 30s
   });
 
@@ -21,12 +21,20 @@ export default function DashboardPage() {
           <h1 className="text-2xl font-bold">Dashboard</h1>
           <p className="text-muted-foreground text-sm">Sales overview</p>
         </div>
-        <a
-      href="/pos"
-          className="text-sm text-primary hover:underline font-medium"
->
-          ← Back to POS
-        </a>
+        <div className="flex items-center gap-4">
+          <a href="/dashboard/categories"
+            className="text-sm font-medium hover:text-primary transition-colors">
+            Categories
+          </a>
+          <a href="/dashboard/products"
+            className="text-sm font-medium text-primary hover:underline">
+            Manage Products →
+          </a>
+          <a href="/pos"
+            className="text-sm text-muted-foreground hover:text-primary transition-colors">
+            ← Back to POS
+          </a>
+        </div>
       </div>
 
       <StatsCards stats={data.stats} />
