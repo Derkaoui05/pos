@@ -36,7 +36,7 @@ export default function ProductGrid({ products }: { products: Product[] }) {
           </div>
 
           {/* Product details */}
-          <span className="text-xs font-bold text-zinc-800 dark:text-zinc-200 leading-snug line-clamp-2 min-h-[2.5rem] mb-1.5">
+          <span className="text-xs font-bold text-zinc-800 dark:text-zinc-200 leading-snug line-clamp-2 min-h-10 mb-1.5">
             {p.name}
           </span>
           
@@ -70,4 +70,4 @@ export default function ProductGrid({ products }: { products: Product[] }) {
       )}
     </div>
   );
-}
+}

@@ -22,7 +22,7 @@ export default function Receipt({ order, ref }: Props) {
       <div className="space-y-1 mb-3">
         <Row label="Order" value={`#${order.orderNumber.slice(-8).toUpperCase()}`} />
         <Row label="Date"  value={format(new Date(order.createdAt), "dd/MM/yyyy HH:mm")} />
-        <Row label="Cashier" value={order.cashier.name} />
+        <Row label="Cashier" value={order.cashier?.name || "Cashier"} />
       </div>
 
       <Divider />
@@ -31,7 +31,7 @@ export default function Receipt({ order, ref }: Props) {
       <div className="space-y-1 my-3">
         {order.items.map(item => (
           <div key={item.id} className="flex justify-between gap-2">
-            <span className="flex-1 truncate">{item.product.name}</span>
+            <span className="flex-1 truncate">{item.product?.name || "Deleted Product"}</span>
             <span className="whitespace-nowrap">
               {item.quantity} x {item.unitPrice.toFixed(2)}
             </span>

@@ -5,7 +5,7 @@ import { startOfDay, startOfWeek, startOfMonth } from "date-fns";
 export async function GET() {
   const now = new Date();
 
-  const [todayOrders, weekOrders, monthOrders, totalOrders, topProducts, recentOrders] =
+  const [todayOrders, weekOrders, monthOrders, totalOrders, topProducts, recentOrders, orderHistory] =
     await Promise.all([
       // Today sales
       prisma.order.aggregate({
@@ -52,6 +52,21 @@ export async function GET() {
           cashier: { select: { name: true } },
         },
       }),
+
+      // All order history totals from the last 12 months for visual analytics
+      prisma.order.findMany({
+        where: {
+          status: "COMPLETED",
+          createdAt: { gte: startOfMonth(new Date(now.getFullYear(), now.getMonth() - 11, 1)) },
+        },
+        select: {
+          createdAt: true,
+          total: true,
+        },
+        orderBy: {
+          createdAt: "asc",
+        },
+      }),
     ]);
 
   // Resolve product names for top products
@@ -75,5 +90,6 @@ export async function GET() {
     },
     topProducts: topProductsWithNames,
     recentOrders,
+    orderHistory,
   });
 }
