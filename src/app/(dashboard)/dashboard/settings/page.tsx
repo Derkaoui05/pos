@@ -128,7 +128,7 @@ export default function SettingsPage() {
                   </label>
                   <div className="flex items-center gap-4">
                     {/* Preview Box */}
-                    <div className="h-20 w-20 rounded-2xl border border-border bg-muted flex items-center justify-center overflow-hidden shadow-2xs flex-shrink-0">
+                    <div className="h-20 w-20 rounded-2xl border border-border bg-muted flex items-center justify-center overflow-hidden shadow-2xs shrink-0">
                       {settings.logo ? (
                         <img
                           src={settings.logo}
@@ -251,7 +251,7 @@ export default function SettingsPage() {
                               : "border-border bg-background hover:bg-muted text-muted-foreground"}`}
                         >
                           <div
-                            className="h-3.5 w-3.5 rounded-full shadow-2xs flex-shrink-0"
+                            className="h-3.5 w-3.5 rounded-full shadow-2xs shrink-0"
                             style={{ backgroundColor: preset.value }}
                           />
                           <span className="truncate">{preset.name}</span>
@@ -269,7 +269,7 @@ export default function SettingsPage() {
                   </label>
                   
                   <div className="flex items-center gap-3 bg-muted/40 p-3 rounded-2xl border border-border/50">
-                    <div className="relative h-10 w-10 rounded-xl overflow-hidden shadow-2xs flex-shrink-0 border border-border">
+                    <div className="relative h-10 w-10 rounded-xl overflow-hidden shadow-2xs shrink-0 border border-border">
                       <input
                         type="color"
                         value={settings.primaryColor.startsWith("#") ? settings.primaryColor : "#5285e4"}

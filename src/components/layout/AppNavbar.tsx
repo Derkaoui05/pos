@@ -44,7 +44,7 @@ export default function AppNavbar() {
             <img
               src={settings.logo}
               alt="Brand Logo"
-              className="h-16 w-32  object-cover border border-border shadow-xs"
+              className="h-16 w-32  object-cover "
             />
           ) : (
             <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary text-primary-foreground shadow-sm">
@@ -60,7 +60,6 @@ export default function AppNavbar() {
             </span>
           </div>
         </div>
-
 
         {/* Primary Navigation Pills */}
         <nav className="flex items-center gap-1.5 bg-muted p-1 rounded-full border border-border/40">
