@@ -134,15 +134,15 @@ export default function SalesChart({ stats, orderHistory = [] }: StatsProps) {
   const peakPeriod = [...chartData].sort((a, b) => b.value - a.value)[0];
 
   return (
-    <div className="border border-zinc-200 dark:border-zinc-800 rounded-3xl p-6 bg-white dark:bg-zinc-950 flex flex-col h-full shadow-2xs">
+    <div className="border border-border rounded-3xl p-6 bg-card text-card-foreground flex flex-col h-full shadow-2xs">
       
       {/* Chart Header & Filters */}
-      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 pb-6 border-b border-zinc-100 dark:border-zinc-900 mb-6">
+      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 pb-6 border-b border-border/60 mb-6">
         <div>
-          <h2 className="text-sm font-bold text-zinc-900 dark:text-zinc-50 tracking-tight">
+          <h2 className="text-sm font-bold text-foreground tracking-tight">
             Order Performance Analyzer
           </h2>
-          <p className="text-[11px] font-medium text-zinc-400 dark:text-zinc-500 mt-0.5">
+          <p className="text-[11px] font-medium text-muted-foreground mt-0.5">
             Analyze terminal volume and transaction values
           </p>
         </div>
@@ -150,7 +150,7 @@ export default function SalesChart({ stats, orderHistory = [] }: StatsProps) {
         {/* Dual Switcher Action Bar */}
         <div className="flex flex-wrap items-center gap-2">
           {/* Time Cycle Selector */}
-          <div className="flex items-center gap-1 bg-zinc-50 dark:bg-zinc-900/50 p-1 rounded-xl border border-zinc-250/20 dark:border-zinc-800/40">
+          <div className="flex items-center gap-1 bg-muted p-1 rounded-xl border border-border/40">
             {(["days", "weeks", "months"] as const).map((cycle) => (
               <button
                 key={cycle}
@@ -158,8 +158,8 @@ export default function SalesChart({ stats, orderHistory = [] }: StatsProps) {
                 onClick={() => setTimeCycle(cycle)}
                 className={`h-7 px-2.5 text-[9px] font-bold rounded-lg uppercase tracking-wider transition-all duration-205 select-none
                   ${timeCycle === cycle
-                    ? "bg-white text-zinc-900 dark:bg-zinc-800 dark:text-zinc-50 shadow-2xs"
-                    : "text-zinc-400 hover:text-zinc-700 dark:text-zinc-500 dark:hover:text-zinc-300"}`}
+                    ? "bg-background text-foreground shadow-2xs"
+                    : "text-muted-foreground hover:text-foreground"}`}
               >
                 {cycle}
               </button>
@@ -167,14 +167,14 @@ export default function SalesChart({ stats, orderHistory = [] }: StatsProps) {
           </div>
 
           {/* Metric Selector (Orders / Revenue) */}
-          <div className="flex items-center gap-1 bg-zinc-50 dark:bg-zinc-900/50 p-1 rounded-xl border border-zinc-250/20 dark:border-zinc-800/40">
+          <div className="flex items-center gap-1 bg-muted p-1 rounded-xl border border-border/40">
             <button
               type="button"
               onClick={() => setMetric("count")}
               className={`h-7 px-2.5 text-[9px] font-bold rounded-lg uppercase tracking-wider gap-1 flex items-center transition-all duration-200 select-none
                 ${metric === "count"
-                  ? "bg-white text-zinc-900 dark:bg-zinc-800 dark:text-zinc-50 shadow-2xs"
-                  : "text-zinc-400 hover:text-zinc-700 dark:text-zinc-500 dark:hover:text-zinc-300"}`}
+                  ? "bg-background text-foreground shadow-2xs"
+                  : "text-muted-foreground hover:text-foreground"}`}
             >
               <BarChart3 className="h-3 w-3" />
               Volume
@@ -184,8 +184,8 @@ export default function SalesChart({ stats, orderHistory = [] }: StatsProps) {
               onClick={() => setMetric("revenue")}
               className={`h-7 px-2.5 text-[9px] font-bold rounded-lg uppercase tracking-wider gap-1 flex items-center transition-all duration-200 select-none
                 ${metric === "revenue"
-                  ? "bg-white text-zinc-900 dark:bg-zinc-800 dark:text-zinc-50 shadow-2xs"
-                  : "text-zinc-400 hover:text-zinc-700 dark:text-zinc-500 dark:hover:text-zinc-300"}`}
+                  ? "bg-background text-foreground shadow-2xs"
+                  : "text-muted-foreground hover:text-foreground"}`}
             >
               <Coins className="h-3 w-3" />
               Revenue
@@ -198,32 +198,32 @@ export default function SalesChart({ stats, orderHistory = [] }: StatsProps) {
       <div className="flex-1 w-full min-h-[220px] relative">
         <ChartContainer config={chartConfig} className="w-full h-full max-h-[240px]">
           <BarChart data={chartData} margin={{ top: 10, right: 10, left: -25, bottom: 0 }}>
-            <CartesianGrid strokeDasharray="3 3" vertical={false} className="stroke-zinc-100 dark:stroke-zinc-800/50" />
+            <CartesianGrid strokeDasharray="3 3" vertical={false} className="stroke-border/40" />
             
             <XAxis
               dataKey="period"
               tickLine={false}
               axisLine={false}
-              className="text-[10px] font-extrabold text-zinc-400 dark:text-zinc-500 tracking-wider uppercase"
+              className="text-[10px] font-extrabold text-muted-foreground tracking-wider uppercase"
               dy={10}
             />
 
             <YAxis
               tickLine={false}
               axisLine={false}
-              className="text-[10px] font-bold text-zinc-400 dark:text-zinc-500 font-mono"
+              className="text-[10px] font-bold text-muted-foreground font-mono"
               tickFormatter={(v) => isRevenue ? `${v} DH` : `${v}`}
               dx={-5}
             />
 
             <ChartTooltip
-              cursor={{ fill: "rgba(244, 244, 245, 0.4)", radius: 12 }}
+              cursor={{ fill: "var(--muted)", opacity: 0.15, radius: 12 }}
               content={
                 <ChartTooltipContent
                   indicator="dot"
-                  className="border border-zinc-200 dark:border-zinc-850"
+                  className="border border-border bg-popover text-popover-foreground"
                   formatter={(value) => (
-                    <span className="font-extrabold text-zinc-800 dark:text-zinc-250 font-mono">
+                    <span className="font-extrabold text-foreground font-mono">
                       {isRevenue ? `${Number(value).toFixed(2)} MAD` : `${value} Orders`}
                     </span>
                   )}
@@ -236,39 +236,39 @@ export default function SalesChart({ stats, orderHistory = [] }: StatsProps) {
               fill="currentColor"
               radius={[10, 10, 0, 0]}
               maxBarSize={45}
-              className="fill-zinc-900 dark:fill-zinc-100 transition-all duration-300"
+              className="fill-primary transition-all duration-300"
             />
           </BarChart>
         </ChartContainer>
       </div>
 
       {/* Dynamic Summary Cards */}
-      <div className="grid grid-cols-3 border-t border-zinc-100 dark:border-zinc-850 pt-4 mt-6 gap-4 text-center">
+      <div className="grid grid-cols-3 border-t border-border/60 pt-4 mt-6 gap-4 text-center">
         <div>
-          <span className="text-[9px] font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500 block mb-0.5">
+          <span className="text-[9px] font-bold uppercase tracking-wider text-muted-foreground block mb-0.5">
             Total Volume
           </span>
-          <span className="text-xs font-extrabold font-mono text-zinc-800 dark:text-zinc-200">
+          <span className="text-xs font-extrabold font-mono text-foreground">
             {isRevenue 
               ? `${totalSum.toFixed(2)} MAD`
               : `${totalSum} Orders`}
           </span>
         </div>
         <div>
-          <span className="text-[9px] font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500 block mb-0.5">
+          <span className="text-[9px] font-bold uppercase tracking-wider text-muted-foreground block mb-0.5">
             Cycle Average
           </span>
-          <span className="text-xs font-extrabold font-mono text-zinc-800 dark:text-zinc-200">
+          <span className="text-xs font-extrabold font-mono text-foreground">
             {isRevenue 
               ? `${averageValue.toFixed(2)} MAD`
               : `${averageValue.toFixed(1)} / period`}
           </span>
         </div>
         <div>
-          <span className="text-[9px] font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500 block mb-0.5">
+          <span className="text-[9px] font-bold uppercase tracking-wider text-muted-foreground block mb-0.5">
             Peak Performance
           </span>
-          <span className="text-xs font-extrabold font-mono text-zinc-800 dark:text-zinc-200 flex items-center justify-center gap-1">
+          <span className="text-xs font-extrabold font-mono text-foreground flex items-center justify-center gap-1">
             <TrendingUp className="h-3 w-3 text-emerald-500" />
             {peakPeriod ? peakPeriod.period : "N/A"}
           </span>

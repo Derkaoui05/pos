@@ -30,7 +30,7 @@ export default function DashboardSubNav() {
   ];
 
   return (
-    <div className="w-full bg-zinc-50/50 dark:bg-zinc-950/30 border-b border-zinc-200 dark:border-zinc-800">
+    <div className="w-full bg-muted/10 border-b border-border">
       <div className="max-w-7xl mx-auto px-6 h-12 flex items-center justify-between">
         
         {/* Navigation Tabs */}
@@ -44,14 +44,14 @@ export default function DashboardSubNav() {
                 className={cn(
                   "flex items-center gap-2 px-4 py-1.5 rounded-lg text-xs font-semibold tracking-wide transition-all duration-200 relative",
                   link.active
-                    ? "text-zinc-900 bg-zinc-100 dark:text-zinc-50 dark:bg-zinc-800"
-                    : "text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-200 hover:bg-zinc-100/50 dark:hover:bg-zinc-800/30"
+                    ? "text-foreground bg-muted"
+                    : "text-muted-foreground hover:text-foreground hover:bg-muted/55"
                 )}
               >
                 <Icon className="h-3.5 w-3.5" />
                 {link.label}
                 {link.active && (
-                  <span className="absolute bottom-0 left-4 right-4 h-0.5 bg-zinc-900 dark:bg-zinc-50 rounded-full" />
+                  <span className="absolute bottom-0 left-4 right-4 h-0.5 bg-primary rounded-full" />
                 )}
               </Link>
             );
@@ -60,7 +60,7 @@ export default function DashboardSubNav() {
 
         {/* Action / Context Badge */}
         <div className="hidden sm:flex items-center gap-1.5">
-          <span className="text-[10px] text-zinc-400 font-semibold tracking-widest uppercase">
+          <span className="text-[10px] text-muted-foreground font-semibold tracking-widest uppercase">
             Control Panel
           </span>
         </div>
