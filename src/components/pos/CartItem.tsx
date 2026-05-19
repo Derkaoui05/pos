@@ -5,7 +5,7 @@ import { Minus, Plus, X } from "lucide-react";
 import QuantityCalculatorDialog from "./QuantityCalculatorDialog";
 
 interface Props {
-  item: { productId: string; name: string; price: number; quantity: number };
+  item: { productId: string; name: string; price: number; quantity: number; stock: number };
 }
 
 export default function CartItem({ item }: Props) {
@@ -66,6 +66,7 @@ export default function CartItem({ item }: Props) {
         onClose={() => setCalcOpen(false)}
         productName={item.name}
         initialQuantity={item.quantity}
+        stock={item.stock}
         onConfirm={(newQty) => updateQty(item.productId, newQty)}
       />
     </div>

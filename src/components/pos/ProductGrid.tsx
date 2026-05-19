@@ -12,7 +12,7 @@ export default function ProductGrid({ products }: { products: Product[] }) {
       {products.map(p => (
         <button
           key={p.id}
-          onClick={() => addItem({ productId: p.id, name: p.name, price: p.price })}
+          onClick={() => addItem({ productId: p.id, name: p.name, price: p.price, stock: p.stock })}
           disabled={p.stock === 0}
           className="group relative flex flex-col items-start p-3.5 rounded-2xl border border-zinc-200 bg-white
             dark:border-zinc-800/80 dark:bg-zinc-950 hover:bg-zinc-50/50 dark:hover:bg-zinc-900/20

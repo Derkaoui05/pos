@@ -5,8 +5,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 // src/app/(pos)/pos/page.tsx — add to header
-import { signOut, useSession } from "next-auth/react";
 import { useSettings } from "@/providers/SettingsProvider";
+import { signOut, useSession } from "next-auth/react";
 
 export default function AppNavbar() {
   const { data: session } = useSession();
@@ -36,15 +36,15 @@ export default function AppNavbar() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur-md">
-      <div className="flex h-16 items-center justify-between px-6">
- 
+      <div className="flex h-20 items-center justify-between px-6">
+
         {/* Brand/Logo */}
         <div className="flex items-center gap-2">
           {settings.logo ? (
             <img
               src={settings.logo}
               alt="Brand Logo"
-              className="h-9 w-9 rounded-lg object-cover border border-border shadow-xs"
+              className="h-16 w-32  object-cover border border-border shadow-xs"
             />
           ) : (
             <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary text-primary-foreground shadow-sm">
@@ -60,8 +60,8 @@ export default function AppNavbar() {
             </span>
           </div>
         </div>
- 
- 
+
+
         {/* Primary Navigation Pills */}
         <nav className="flex items-center gap-1.5 bg-muted p-1 rounded-full border border-border/40">
           <Link
@@ -89,7 +89,7 @@ export default function AppNavbar() {
             Dashboard Hub
           </Link>
         </nav>
- 
+
         {/* Status / Meta Info */}
         <div className="flex items-center gap-4">
           {/* Live System Time */}
@@ -97,7 +97,7 @@ export default function AppNavbar() {
             <Clock className="h-3.5 w-3.5 text-muted-foreground animate-pulse" />
             <span>{time || "--:--:--"}</span>
           </div>
- 
+
           {/* Sync indicator */}
           <div className="flex items-center gap-2 bg-emerald-500/10 px-3 py-1.5 rounded-lg border border-emerald-500/25">
             <div className="relative flex h-2 w-2">
@@ -116,7 +116,7 @@ export default function AppNavbar() {
           </button>
           <span className="text-sm text-muted-foreground">{session?.user?.name}</span>
         </div>
- 
+
       </div>
     </header>
   );

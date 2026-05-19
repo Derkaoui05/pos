@@ -82,13 +82,16 @@ export default function PaymentDialog({ open, onClose, total, tax }: Props) {
         }),
       });
 
-      if (!res.ok) throw new Error("Order failed");
+      if (!res.ok) {
+        const errData = await res.json().catch(() => ({}));
+        throw new Error(errData.error || "Order failed");
+      }
 
       const data: Order = await res.json();
       setCompletedOrder(data);
       clearCart();
-    } catch {
-      toast.error("Something went wrong.");
+    } catch (err: any) {
+      toast.error(err.message || "Something went wrong.");
     } finally {
       setLoading(false);
     }

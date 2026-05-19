@@ -8,12 +8,14 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Delete, Check, RotateCcw } from "lucide-react";
+import { toast } from "sonner";
 
 interface Props {
   open: boolean;
   onClose: () => void;
   productName: string;
   initialQuantity: number;
+  stock?: number;
   onConfirm: (quantity: number) => void;
 }
 
@@ -22,6 +24,7 @@ export default function QuantityCalculatorDialog({
   onClose,
   productName,
   initialQuantity,
+  stock,
   onConfirm,
 }: Props) {
   const [value, setValue] = useState(initialQuantity.toString());
@@ -92,7 +95,14 @@ export default function QuantityCalculatorDialog({
 
   const handleConfirm = () => {
     const parsed = parseInt(value);
-    onConfirm(isNaN(parsed) || parsed < 0 ? 0 : parsed);
+    const finalVal = isNaN(parsed) || parsed < 0 ? 0 : parsed;
+
+    if (stock !== undefined && finalVal > stock) {
+      toast.error(`We only have ${stock} left in stock for "${productName}"!`);
+      return;
+    }
+
+    onConfirm(finalVal);
     onClose();
   };
 
