@@ -37,6 +37,11 @@ export async function GET() {
 
       // Top 5 products
       prisma.orderItem.groupBy({
+        where: {
+          order: {
+            status: "COMPLETED",
+          },
+        },
         by:       ["productId"],
         _sum:     { quantity: true, subtotal: true },
         orderBy:  { _sum: { quantity: "desc" } },
