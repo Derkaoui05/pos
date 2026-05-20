@@ -35,7 +35,7 @@ export default function CategoriesPage() {
     products.filter((p: any) => p.categoryId === categoryId).length;
 
   const deleteMutation = useMutation({
-    pointer: "categories-delete",
+    mutationKey: ["categories-delete"],
     mutationFn: async (id: string) => {
       const res = await fetch(`/api/categories/${id}`, { method: "DELETE" });
       const data = await res.json();

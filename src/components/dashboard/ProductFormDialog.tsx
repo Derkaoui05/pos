@@ -42,7 +42,7 @@ export default function ProductFormDialog({ open, onClose, categories, product }
   const [uploading, setUploading] = useState(false);
 
   const { register, handleSubmit, reset, setValue, watch, formState: { errors } } = useForm<FormData>({
-    resolver: zodResolver(schema),
+    resolver: zodResolver(schema) as any,
     defaultValues: { stock: 0, price: 0, imageUrl: "" },
   });
 

@@ -6,7 +6,7 @@ export const authConfig = {
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token.id   = user.id;
+        token.id   = user.id!;
         token.role = (user as any).role;
       }
       return token;
@@ -21,7 +21,7 @@ export const authConfig = {
   },
   pages:   { signIn: "/login" },
   session: { strategy: "jwt" },
-  secret:  process.env.AUTH_SECRET,
+  secret:  process.env.AUTH_SECRET!,
 } satisfies NextAuthConfig;
 
 export const { auth } = NextAuth(authConfig);
