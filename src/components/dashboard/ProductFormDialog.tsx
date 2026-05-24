@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -29,6 +29,7 @@ const schema = z.object({
 });
 
 type FormData = z.infer<typeof schema>;
+type FormInput = z.input<typeof schema>;
 
 interface Props {
   open: boolean;
@@ -42,12 +43,13 @@ export default function ProductFormDialog({ open, onClose, categories, product }
   const isEditing = !!product;
   const [uploading, setUploading] = useState(false);
 
-  const { register, handleSubmit, reset, setValue, watch, formState: { errors } } = useForm<FormData>({
+  const { register, handleSubmit, reset, setValue, control, formState: { errors } } = useForm<FormInput, unknown, FormData>({
     resolver: zodResolver(schema),
     defaultValues: { stock: 0, price: 0, imageUrl: "" },
   });
 
-  const imageUrl = watch("imageUrl");
+  const imageUrl = useWatch({ control, name: "imageUrl" });
+  const categoryId = useWatch({ control, name: "categoryId" });
 
   // Populate form when editing
   useEffect(() => {
@@ -119,7 +121,7 @@ export default function ProductFormDialog({ open, onClose, categories, product }
           </DialogTitle>
         </DialogHeader>
 
-        <form onSubmit={handleSubmit(d => mutation.mutate(d))} className="space-y-4 pt-1">
+        <form onSubmit={handleSubmit((d) => mutation.mutate(d as FormData))} className="space-y-4 pt-1">
           {/* Name */}
           <div className="space-y-1">
             <Label className="text-xs font-bold text-zinc-700 dark:text-zinc-300">Name *</Label>
@@ -131,7 +133,7 @@ export default function ProductFormDialog({ open, onClose, categories, product }
           <div className="space-y-1">
             <Label className="text-xs font-bold text-zinc-700 dark:text-zinc-300">Category *</Label>
             <Select
-              value={watch("categoryId")}
+              value={categoryId}
               onValueChange={v => setValue("categoryId", v)}
             >
               <SelectTrigger className="h-9 text-sm">
