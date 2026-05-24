@@ -17,32 +17,33 @@ import {
 } from "@/components/ui/select";
 import { toast } from "sonner";
 import { UploadCloud, Trash2, Image as ImageIcon, Loader2 } from "lucide-react";
+import Image from "next/image";
 
 const schema = z.object({
-  name:       z.string().min(1, "Name is required"),
-  barcode:    z.string().optional(),
-  price:      z.coerce.number().positive("Price must be positive"),
-  stock:      z.coerce.number().int().min(0, "Stock cannot be negative"),
-  imageUrl:   z.string().optional().or(z.literal("")),
+  name: z.string().min(1, "Name is required"),
+  barcode: z.string().optional(),
+  price: z.coerce.number().positive("Price must be positive"),
+  stock: z.coerce.number().int().min(0, "Stock cannot be negative"),
+  imageUrl: z.string().optional().or(z.literal("")),
   categoryId: z.string().min(1, "Category is required"),
 });
 
 type FormData = z.infer<typeof schema>;
 
 interface Props {
-  open:       boolean;
-  onClose:    () => void;
+  open: boolean;
+  onClose: () => void;
   categories: Category[];
-  product?:   Product | null;
+  product?: Product | null;
 }
 
 export default function ProductFormDialog({ open, onClose, categories, product }: Props) {
-  const qc        = useQueryClient();
+  const qc = useQueryClient();
   const isEditing = !!product;
   const [uploading, setUploading] = useState(false);
 
   const { register, handleSubmit, reset, setValue, watch, formState: { errors } } = useForm<FormData>({
-    resolver: zodResolver(schema) as any,
+    resolver: zodResolver(schema),
     defaultValues: { stock: 0, price: 0, imageUrl: "" },
   });
 
@@ -52,11 +53,11 @@ export default function ProductFormDialog({ open, onClose, categories, product }
   useEffect(() => {
     if (product) {
       reset({
-        name:       product.name,
-        barcode:    product.barcode ?? "",
-        price:      product.price,
-        stock:      product.stock,
-        imageUrl:   product.imageUrl ?? "",
+        name: product.name,
+        barcode: product.barcode ?? "",
+        price: product.price,
+        stock: product.stock,
+        imageUrl: product.imageUrl ?? "",
         categoryId: product.categoryId,
       });
     } else {
@@ -83,8 +84,8 @@ export default function ProductFormDialog({ open, onClose, categories, product }
 
       setValue("imageUrl", data.url);
       toast.success("Image uploaded successfully");
-    } catch (err: any) {
-      toast.error(err.message || "Failed to upload image");
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Failed to upload image");
     } finally {
       setUploading(false);
     }
@@ -92,12 +93,12 @@ export default function ProductFormDialog({ open, onClose, categories, product }
 
   const mutation = useMutation({
     mutationFn: (data: FormData) => {
-      const url    = isEditing ? `/api/products/${product!.id}` : "/api/products";
+      const url = isEditing ? `/api/products/${product!.id}` : "/api/products";
       const method = isEditing ? "PATCH" : "POST";
       return fetch(url, {
         method,
         headers: { "Content-Type": "application/json" },
-        body:    JSON.stringify(data),
+        body: JSON.stringify(data),
       }).then(r => r.json());
     },
     onSuccess: () => {
@@ -117,7 +118,7 @@ export default function ProductFormDialog({ open, onClose, categories, product }
             {isEditing ? "Edit Product" : "New Product"}
           </DialogTitle>
         </DialogHeader>
- 
+
         <form onSubmit={handleSubmit(d => mutation.mutate(d))} className="space-y-4 pt-1">
           {/* Name */}
           <div className="space-y-1">
@@ -125,7 +126,7 @@ export default function ProductFormDialog({ open, onClose, categories, product }
             <Input {...register("name")} placeholder="Product name" className="h-9 text-sm" />
             {errors.name && <p className="text-xs text-destructive">{errors.name.message}</p>}
           </div>
- 
+
           {/* Category */}
           <div className="space-y-1">
             <Label className="text-xs font-bold text-zinc-700 dark:text-zinc-300">Category *</Label>
@@ -144,7 +145,7 @@ export default function ProductFormDialog({ open, onClose, categories, product }
             </Select>
             {errors.categoryId && <p className="text-xs text-destructive">{errors.categoryId.message}</p>}
           </div>
- 
+
           {/* Price + Stock */}
           <div className="grid grid-cols-2 gap-3">
             <div className="space-y-1">
@@ -158,23 +159,23 @@ export default function ProductFormDialog({ open, onClose, categories, product }
               {errors.stock && <p className="text-xs text-destructive">{errors.stock.message}</p>}
             </div>
           </div>
- 
+
           {/* Barcode */}
           <div className="space-y-1">
             <Label className="text-xs font-bold text-zinc-700 dark:text-zinc-300">Barcode</Label>
             <Input {...register("barcode")} placeholder="Optional" className="h-9 text-sm" />
           </div>
- 
+
           {/* Image Upload Area */}
           <div className="space-y-1.5">
             <Label className="text-xs font-bold text-zinc-700 dark:text-zinc-300">Product Image</Label>
-            
+
             <div className="flex items-center gap-4">
               {/* Image Preview Window */}
               <div className="relative h-20 w-20 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 flex items-center justify-center overflow-hidden shrink-0 shadow-inner group">
                 {imageUrl ? (
                   <>
-                    <img src={imageUrl} alt="Preview" className="h-full w-full object-cover rounded-xl" />
+                    <Image width={100} height={100} src={imageUrl} alt="Preview" className="h-full w-full object-cover rounded-xl" />
                     <button
                       type="button"
                       onClick={() => setValue("imageUrl", "")}
@@ -228,7 +229,7 @@ export default function ProductFormDialog({ open, onClose, categories, product }
               {errors.imageUrl && <p className="text-[10px] text-red-500 font-semibold mt-1">{errors.imageUrl.message}</p>}
             </div>
           </div>
- 
+
           <div className="flex gap-2 pt-3">
             <Button type="button" variant="outline" className="flex-1 h-9 text-xs font-bold border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400" onClick={onClose}>
               Cancel
@@ -241,4 +242,4 @@ export default function ProductFormDialog({ open, onClose, categories, product }
       </DialogContent>
     </Dialog>
   );
-}
+}
