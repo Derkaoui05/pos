@@ -1,0 +1,36 @@
+{
+  "settings": {
+    "title": "إعدادات النظام",
+    "subtitle": "تخصيص العناصر المرئية والألوان الأساسية",
+    "reset": "استعادة الافتراضيات",
+    "brand_customizer": "تخصيص هوية العلامة التجارية",
+    "store_name": "اسم المتجر / النظام",
+    "store_name_placeholder": "مثال: نقطة بيع عثمان",
+    "store_name_desc": "هذا يحدث النص الرئيسي المعروض في الترويسات.",
+    "brand_logo": "شعار العلامة التجارية",
+    "upload_logo": "رفع الشعار",
+    "remove_logo": "إزالة الشعار",
+    "logo_desc": "PNG، JPG، أو SVG. الحد الأقصى لحجم الملف 2 ميجابايت.",
+    "simulation": "معاينة ترويسة العلامة التجارية",
+    "system": "نظام نقاط البيع",
+    "app_colors": "ألوان التطبيق",
+    "presets": "إعدادات مسبقة",
+    "custom_color": "لون مخصص",
+    "infinite_spectrum": "طيف لا نهائي",
+    "infinite_spectrum_desc": "حدد أي لون من مربع الألوان.",
+    "languages": "الترجمة واللغة",
+    "languages_desc": "حدد لغة الواجهة المفضلة لديك. هذا يؤثر على القوائم والأزرار.",
+    "select_language": "حدد لغة الواجهة",
+    "language_english": "English (US)",
+    "language_french": "Français",
+    "language_arabic": "العربية",
+    "language_german": "Deutsch"
+  },
+  "nav": {
+    "dashboard": "لوحة القيادة",
+    "products": "المنتجات",
+    "orders": "الطلبات",
+    "pos": "نقطة البيع",
+    "settings": "الإعدادات"
+  }
+}

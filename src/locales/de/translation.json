@@ -1,0 +1,36 @@
+{
+  "settings": {
+    "title": "Terminal-Einstellungen",
+    "subtitle": "Markenelemente und Primärfarben anpassen",
+    "reset": "Zurücksetzen",
+    "brand_customizer": "Markenidentität Anpassen",
+    "store_name": "Geschäfts- / Terminalname",
+    "store_name_placeholder": "Z.B. Othmane POS",
+    "store_name_desc": "Dies aktualisiert den Haupttext, der in Überschriften angezeigt wird.",
+    "brand_logo": "Markenlogo",
+    "upload_logo": "Logo hochladen",
+    "remove_logo": "Logo entfernen",
+    "logo_desc": "PNG, JPG oder SVG. Maximale Dateigröße 2MB.",
+    "simulation": "Vorschau",
+    "system": "Kassensystem",
+    "app_colors": "App-Farben",
+    "presets": "Voreinstellungen",
+    "custom_color": "Eigene Farbe",
+    "infinite_spectrum": "Unendliches Spektrum",
+    "infinite_spectrum_desc": "Wählen Sie eine beliebige Farbe.",
+    "languages": "Lokalisierung & Sprache",
+    "languages_desc": "Wählen Sie Ihre bevorzugte Sprache. Dies wirkt sich auf Menüs und Schaltflächen aus.",
+    "select_language": "Sprache der Benutzeroberfläche auswählen",
+    "language_english": "English (US)",
+    "language_french": "Français",
+    "language_arabic": "العربية",
+    "language_german": "Deutsch"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "products": "Produkte",
+    "orders": "Bestellungen",
+    "pos": "Kasse",
+    "settings": "Einstellungen"
+  }
+}

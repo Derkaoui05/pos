@@ -10,7 +10,7 @@ import { LayoutGrid } from "lucide-react";
 export default function POSPage() {
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
 
-  const { data: products = [] } = useQuery<Product[]>({
+  const { data: products = [], isLoading: isLoadingProducts } = useQuery<Product[]>({
     queryKey: ["products"],
     queryFn: () => fetch("/api/products").then(r => r.json()),
   });
@@ -72,7 +72,7 @@ export default function POSPage() {
 
           {/* Product Grid Area */}
           <div className="flex-1 overflow-y-auto pr-1">
-            <ProductGrid products={filtered} />
+            <ProductGrid products={filtered} isLoading={isLoadingProducts} />
           </div>
         </div>
 

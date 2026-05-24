@@ -1,0 +1,36 @@
+{
+  "settings": {
+    "title": "Paramètres du terminal",
+    "subtitle": "Personnalisez les éléments visuels de la marque et les couleurs",
+    "reset": "Réinitialiser",
+    "brand_customizer": "Personnalisation de la marque",
+    "store_name": "Nom du magasin / terminal",
+    "store_name_placeholder": "Ex: Othmane POS",
+    "store_name_desc": "Cela met à jour le texte principal de l'entreprise affiché sur les en-têtes.",
+    "brand_logo": "Logo de la marque",
+    "upload_logo": "Télécharger un logo",
+    "remove_logo": "Supprimer le logo",
+    "logo_desc": "PNG, JPG ou SVG. Taille maximale 2Mo.",
+    "simulation": "Aperçu de l'en-tête",
+    "system": "Système POS",
+    "app_colors": "Couleurs de l'application",
+    "presets": "Préréglages",
+    "custom_color": "Couleur personnalisée",
+    "infinite_spectrum": "Spectre infini",
+    "infinite_spectrum_desc": "Sélectionnez n'importe quelle teinte.",
+    "languages": "Localisation et Langue",
+    "languages_desc": "Définissez la langue de l'interface. Cela affecte les menus et les boutons.",
+    "select_language": "Sélectionner la langue de l'interface",
+    "language_english": "English (US)",
+    "language_french": "Français",
+    "language_arabic": "العربية",
+    "language_german": "Deutsch"
+  },
+  "nav": {
+    "dashboard": "Tableau de bord",
+    "products": "Produits",
+    "orders": "Commandes",
+    "pos": "Caisse",
+    "settings": "Paramètres"
+  }
+}

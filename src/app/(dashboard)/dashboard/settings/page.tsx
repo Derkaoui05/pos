@@ -4,7 +4,8 @@ import AppNavbar from "@/components/layout/AppNavbar";
 import DashboardSubNav from "@/components/dashboard/DashboardSubNav";
 import { useSettings } from "@/providers/SettingsProvider";
 import { toast } from "sonner";
-import { Upload, RotateCcw, Palette, Image as ImageIcon, Sparkles, Paintbrush } from "lucide-react";
+import { Upload, RotateCcw, Palette, Image as ImageIcon, Sparkles, Paintbrush, Globe } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 
 const PRESET_COLORS = [
@@ -18,6 +19,7 @@ const PRESET_COLORS = [
 
 export default function SettingsPage() {
   const { settings, updateSettings, resetSettings } = useSettings();
+  const { t, i18n } = useTranslation();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Handle Logo Upload (read file as base64)
@@ -71,10 +73,10 @@ export default function SettingsPage() {
         <div className="flex items-center justify-between pb-2 border-b border-border/50">
           <div>
             <h1 className="text-2xl font-bold tracking-tight text-foreground">
-              Terminal Settings
+              {t('settings.title', 'Terminal Settings')}
             </h1>
             <p className="text-muted-foreground text-xs font-semibold uppercase tracking-wider mt-0.5">
-              Customize brand visual elements and primary color systems
+              {t('settings.subtitle', 'Customize brand visual elements and primary color systems')}
             </p>
           </div>
 
@@ -289,6 +291,38 @@ export default function SettingsPage() {
                   </div>
                 </div>
 
+              </div>
+            </div>
+
+            {/* Card 4: Localization & Language */}
+            <div className="border border-border rounded-3xl p-6 bg-card text-card-foreground shadow-2xs">
+              <div className="flex items-center gap-2 pb-4 mb-4 border-b border-border/40">
+                <Globe className="h-4 w-4 text-blue-500" />
+                <h2 className="text-sm font-bold tracking-tight text-foreground uppercase">
+                  {t('settings.languages', 'Localization & Language')}
+                </h2>
+              </div>
+
+              <div className="space-y-4">
+                <p className="text-[11px] text-muted-foreground leading-relaxed">
+                  {t('settings.languages_desc', 'Set your preferred interface language. This affects menus, buttons, and layouts.')}
+                </p>
+
+                <div className="space-y-2">
+                  <label className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground block">
+                    {t('settings.select_language', 'Select Interface Language')}
+                  </label>
+                  <select
+                    value={i18n.language}
+                    onChange={(e) => i18n.changeLanguage(e.target.value)}
+                    className="w-full px-3 h-10 rounded-xl border border-border bg-background text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary/20 text-foreground"
+                  >
+                    <option value="en">{t('settings.language_english', 'English (US)')}</option>
+                    <option value="fr">{t('settings.language_french', 'Français')}</option>
+                    <option value="ar">{t('settings.language_arabic', 'العربية')}</option>
+                    <option value="de">{t('settings.language_german', 'Deutsch')}</option>
+                  </select>
+                </div>
               </div>
             </div>
 

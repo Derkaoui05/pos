@@ -4,32 +4,34 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { BarChart3, Package, Layers, Settings } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "react-i18next";
 
 export default function DashboardSubNav() {
   const pathname = usePathname();
+  const { t } = useTranslation();
 
   const links = [
     {
       href: "/dashboard",
-      label: "Overview",
+      label: t('nav.dashboard', "Overview"),
       icon: BarChart3,
       active: pathname === "/dashboard",
     },
     {
       href: "/dashboard/products",
-      label: "Products",
+      label: t('nav.products', "Products"),
       icon: Package,
       active: pathname?.startsWith("/dashboard/products"),
     },
     {
       href: "/dashboard/categories",
-      label: "Categories",
+      label: t('nav.categories', "Categories"),
       icon: Layers,
       active: pathname?.startsWith("/dashboard/categories"),
     },
     {
       href: "/dashboard/settings",
-      label: "Settings",
+      label: t('nav.settings', "Settings"),
       icon: Settings,
       active: pathname?.startsWith("/dashboard/settings"),
     },

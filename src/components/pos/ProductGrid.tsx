@@ -4,8 +4,22 @@ import { Product } from "@/types";
 import { Badge } from "@/components/ui/badge";
 import { Store } from "lucide-react";
 
-export default function ProductGrid({ products }: { products: Product[] }) {
+export default function ProductGrid({ products, isLoading }: { products: Product[], isLoading?: boolean }) {
   const addItem = useCartStore(s => s.addItem);
+
+  if (isLoading) {
+    return (
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 pb-6">
+        {Array.from({ length: 8 }).map((_, i) => (
+          <div key={i} className="flex flex-col p-3.5 rounded-2xl border border-zinc-200 dark:border-zinc-800/80 bg-white dark:bg-zinc-950/50 min-h-[220px]">
+            <div className="w-full aspect-square rounded-xl bg-zinc-100 dark:bg-zinc-900 animate-pulse mb-3.5" />
+            <div className="h-4 bg-zinc-100 dark:bg-zinc-900 rounded animate-pulse w-3/4 mb-2" />
+            <div className="h-4 bg-zinc-100 dark:bg-zinc-900 rounded animate-pulse w-1/2 mt-auto" />
+          </div>
+        ))}
+      </div>
+    );
+  }
 
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 pb-6">

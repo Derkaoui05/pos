@@ -1,0 +1,36 @@
+{
+  "settings": {
+    "title": "Terminal Settings",
+    "subtitle": "Customize brand visual elements and primary color systems",
+    "reset": "Reset Defaults",
+    "brand_customizer": "Brand Identity Customizer",
+    "store_name": "Store / Terminal Name",
+    "store_name_placeholder": "E.g. Othmane POS",
+    "store_name_desc": "This updates the main business text moniker displayed on headers and invoices.",
+    "brand_logo": "Brand Logo Image",
+    "upload_logo": "Upload Logo File",
+    "remove_logo": "Remove Logo",
+    "logo_desc": "PNG, JPG, or SVG. Maximum file size 2MB. Logo renders in standard headers.",
+    "simulation": "Brand Header Simulation Preview",
+    "system": "POS System",
+    "app_colors": "App Accent Colors",
+    "presets": "Curated Presets",
+    "custom_color": "Custom Color Pick",
+    "infinite_spectrum": "Infinite Spectrum",
+    "infinite_spectrum_desc": "Select any hex shade from the color spectrum box.",
+    "languages": "Localization & Language",
+    "languages_desc": "Set your preferred interface language. This affects menus, buttons, and layouts.",
+    "select_language": "Select Interface Language",
+    "language_english": "English (US)",
+    "language_french": "Français",
+    "language_arabic": "العربية",
+    "language_german": "Deutsch"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "products": "Products",
+    "orders": "Orders",
+    "pos": "POS",
+    "settings": "Settings"
+  }
+}
