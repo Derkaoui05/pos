@@ -23,16 +23,25 @@ export async function POST(req: NextRequest) {
     // Target upload folder in public/
     const uploadDir = join(process.cwd(), "public", "uploads");
     
-    // Ensure directory exists
-    await mkdir(uploadDir, { recursive: true });
+    try {
+      // Ensure directory exists
+      await mkdir(uploadDir, { recursive: true });
 
-    // Write file to disk
-    const filePath = join(uploadDir, filename);
-    await writeFile(filePath, buffer);
+      // Write file to disk
+      const filePath = join(uploadDir, filename);
+      await writeFile(filePath, buffer);
 
-    // Return the public access URL
-    const url = `/uploads/${filename}`;
-    return NextResponse.json({ url });
+      // Return the public access URL
+      const url = `/uploads/${filename}`;
+      return NextResponse.json({ url });
+    } catch (fsError) {
+      console.warn("Local filesystem write failed, falling back to base64 Data URL format:", fsError);
+      
+      // Fallback: Convert directly to base64 data URL
+      const base64Data = buffer.toString("base64");
+      const url = `data:${file.type || "image/png"};base64,${base64Data}`;
+      return NextResponse.json({ url });
+    }
   } catch (error: any) {
     console.error("Upload error:", error);
     return NextResponse.json({ error: error.message || "Failed to upload file" }, { status: 500 });
