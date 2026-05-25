@@ -36,61 +36,61 @@ export default function AppNavbar() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur-md">
-      <div className="flex h-20 items-center justify-between px-6">
+      <div className="flex h-16 md:h-20 items-center justify-between px-3 md:px-6">
 
         {/* Brand/Logo */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5 md:gap-2">
           {settings.logo ? (
             <img
               src={settings.logo}
               alt="Brand Logo"
-              className="h-16 w-32  object-cover "
+              className="h-10 w-20 md:h-16 md:w-32 object-cover"
             />
           ) : (
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary text-primary-foreground shadow-sm">
-              <Store className="h-5 w-5" />
+            <div className="flex h-7 w-7 md:h-9 md:w-9 items-center justify-center rounded-lg bg-primary text-primary-foreground shadow-xs">
+              <Store className="h-4 w-4 md:h-5 md:w-5" />
             </div>
           )}
-          <div>
-            <span className="font-bold text-sm tracking-tight text-foreground block leading-none">
+          <div className="hidden xs:block">
+            <span className="font-bold text-xs md:text-sm tracking-tight text-foreground block leading-none">
               {settings.logoText || "NEXUS"}
             </span>
-            <span className="text-[10px] text-muted-foreground font-semibold tracking-wider uppercase">
+            <span className="text-[8px] md:text-[10px] text-muted-foreground font-semibold tracking-wider uppercase">
               POS System
             </span>
           </div>
         </div>
 
         {/* Primary Navigation Pills */}
-        <nav className="flex items-center gap-1.5 bg-muted p-1 rounded-full border border-border/40">
+        <nav className="flex items-center gap-1 bg-muted p-0.5 md:p-1 rounded-full border border-border/40">
           <Link
             href="/pos"
             className={cn(
-              "flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide transition-all duration-200 select-none",
+              "flex items-center gap-1 md:gap-2 px-2.5 py-1 md:px-4 md:py-1.5 rounded-full text-[10px] md:text-xs font-semibold tracking-wide transition-all duration-200 select-none",
               isPOS
                 ? "bg-background text-foreground shadow-xs"
                 : "text-muted-foreground hover:text-foreground"
             )}
           >
-            <ShoppingBag className="h-3.5 w-3.5" />
-            POS Terminal
+            <ShoppingBag className="h-3 md:h-3.5 w-3 md:w-3.5" />
+            <span className="xs:inline">POS</span>
           </Link>
           <Link
             href="/dashboard"
             className={cn(
-              "flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide transition-all duration-200 select-none",
+              "flex items-center gap-1 md:gap-2 px-2.5 py-1 md:px-4 md:py-1.5 rounded-full text-[10px] md:text-xs font-semibold tracking-wide transition-all duration-200 select-none",
               isDashboard
                 ? "bg-background text-foreground shadow-xs"
                 : "text-muted-foreground hover:text-foreground"
             )}
           >
-            <LayoutDashboard className="h-3.5 w-3.5" />
-            Dashboard Hub
+            <LayoutDashboard className="h-3 md:h-3.5 w-3 md:w-3.5" />
+            <span className="xs:inline">Dashboard</span>
           </Link>
         </nav>
 
         {/* Status / Meta Info */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 md:gap-4">
           {/* Live System Time */}
           <div className="hidden md:flex items-center gap-2 bg-muted/40 px-3.5 py-1.5 rounded-lg border border-border/30 text-xs font-mono font-medium text-foreground">
             <Clock className="h-3.5 w-3.5 text-muted-foreground animate-pulse" />
@@ -98,7 +98,7 @@ export default function AppNavbar() {
           </div>
 
           {/* Sync indicator */}
-          <div className="flex items-center gap-2 bg-emerald-500/10 px-3 py-1.5 rounded-lg border border-emerald-500/25">
+          <div className="flex items-center gap-1 bg-emerald-500/10 p-1 md:px-3 md:py-1.5 rounded-lg border border-emerald-500/25">
             <div className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
@@ -109,11 +109,13 @@ export default function AppNavbar() {
           </div>
           <button
             onClick={() => signOut({ callbackUrl: "/login" })}
-            className="text-xs text-muted-foreground hover:text-destructive transition-colors"
+            className="text-[10px] md:text-xs text-muted-foreground hover:text-destructive transition-colors font-medium"
           >
             Sign out
           </button>
-          <span className="text-sm text-muted-foreground">{session?.user?.name}</span>
+          <span className="hidden xs:inline text-xs md:text-sm font-semibold text-muted-foreground truncate max-w-[80px]">
+            {session?.user?.name}
+          </span>
         </div>
 
       </div>
